@@ -5,7 +5,11 @@ Rails.application.routes.draw do
       resources :users
       post 'auth/signin', to: 'sessions#create'
       post 'users/signup', to: 'users#create'
-      get '/users', to: 'users#index'
+
+      post '/contents', to: 'contents#create'
+      get '/content', to: 'contents#show'
+      put '/contents/:id', to: 'contents#update'
+      delete '/contents/:id', to: 'contents#destroy'
     end
   end
 end

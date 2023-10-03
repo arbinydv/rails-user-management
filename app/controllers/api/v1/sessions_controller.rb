@@ -1,4 +1,6 @@
 class Api::V1::SessionsController < ApplicationController
+  skip_before_action :authenticate_user, only: [:create]
+
   def create
     user = User.find_by(email: session_params[:email])  ## when user tries to sign in it comes here first to create a new session
     if user && user.authenticate(session_params[:password])  # user.authenticate ==> from bcrypt gem 
