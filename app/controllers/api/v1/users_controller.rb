@@ -24,7 +24,7 @@ class Api::V1::UsersController < ApplicationController
 			user_json = serialize_user(user, token)
 			render_user(user_json)
 		else
-			render_error("User not found.", :unprocessable_entity)
+			render_error('User not found.', :unprocessable_entity)
 		end
 	end
 

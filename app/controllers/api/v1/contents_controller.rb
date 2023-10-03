@@ -12,32 +12,45 @@ class Api::V1::ContentsController < ApplicationController
     if content.save
       render json: content, serializer: ContentSerializer
     else
-      render_error("Could not create content", :unprocessable_entity)
+      render_error('Could not create content', :unprocessable_entity)
     end
   end
-
+  
   def show
-    content = Content.find(params[:id])
-    render json: content, serializer: ContentSerializer
+    content = Content.find_by(id: params[:id])
+
+    if content
+      render json: content, serializer: ContentSerializer
+    else
+      render json: { error: 'Content not found' }, status: :not_found
+    end
   end
 
   def update
-    content = Content.find(params[:id])
+    content = Content.find_by(id: params[:id])
 
-    if content.update(content_params)
-      render json: content, serializer: ContentSerializer
+    if content
+      if content.update(content_params)
+        render json: content, serializer: ContentSerializer
+      else
+        render json: { error: 'Could not update content' }, status: :unprocessable_entity
+      end
     else
-      render_error("Could not update content", :unprocessable_entity)
+      render json: { error: 'Content not found' }, status: :not_found
     end
   end
 
-def destroy
-    content = Content.find(params[:id])
+  def destroy
+    content = Content.find_by(id: params[:id])
 
-    if content.destroy
-      render json: {message: "Deleted"}
+    if content
+      if content.destroy
+        render json: { message: 'Deleted' }
+      else
+        render json: { error: 'Could not delete content' }, status: :unprocessable_entity
+      end
     else
-      render_error("Could not delete content", :unprocessable_entity)
+      render json: { error: 'Content not found' }, status: :not_found
     end
   end
 

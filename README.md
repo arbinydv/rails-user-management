@@ -65,8 +65,8 @@ git clone git@github.com:arbinydv/rails-user-management.git
     ```
  Now, your project is up and running at http://localhost:3000 🌐
 #### 3. API Authentication and Authorization using POSTMAN
-* Please refer to this Postman Collection for the Rails API collection part 
-https://api.postman.com/collections/26004666-d6e4a78b-8137-41b2-9387-c3ee44dc4cf8?access_key=PMAT-01HBTJRND8QMF10B0EXC3FPDAG
+* Please refer to this Postman Collection inside this directory for all endpoints
+    - app/storage
 
 
 Feel free to explore and give feedbacks! 🎉
