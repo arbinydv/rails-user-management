@@ -1,11 +1,4 @@
 # Rails Authentication and Authorization 
-
-
-
-
-
-
-
 ### Rails API  📦✨
 #### Rails API to support user authentication and authorization on the App. 🛒🔍
 ## Overview 📋
@@ -65,8 +58,8 @@ git clone git@github.com:arbinydv/rails-user-management.git
     ```
  Now, your project is up and running at http://localhost:3000 🌐
 #### 3. API Authentication and Authorization using POSTMAN
-* Please refer to this Postman Collection inside this directory for all endpoints
-    - app/storage
+* Please refer to this Postman Collection inside this google drive for all endpoints
+    - https://drive.google.com/drive/folders/1wypukKswhvGdkqtFenSSO3XYwPYiKxf-?usp=sharing
 
 
 Feel free to explore and give feedbacks! 🎉
