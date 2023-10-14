@@ -6,10 +6,10 @@ class Api::V1::UsersController < ApplicationController
       render json: users, status: :ok
   end
 
-	def create
+	def signup
 		user = User.new(user_params)
 		if user.save
-			token = issue_token(user)
+			token = JsonWebToken.encode(user_id: user.id)
 			user_json = serialize_user(user, token)
 			render_user(user_json)
 		else
@@ -20,7 +20,7 @@ class Api::V1::UsersController < ApplicationController
 	def show
 		user = User.find_by(id: params[:id])
 		if user
-			token = issue_token(user)
+			token = JsonWebToken.encode(user_id: user.id)
 			user_json = serialize_user(user, token)
 			render_user(user_json)
 		else

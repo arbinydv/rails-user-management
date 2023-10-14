@@ -3,8 +3,8 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :contents
       resources :users
-      post 'auth/signin', to: 'sessions#create'
-      post 'users/signup', to: 'users#create'
+      post 'auth/signin', to: 'sessions#signin'
+      post 'users/signup', to: 'users#signup'
 
       post '/contents', to: 'contents#create'
       get '/content', to: 'contents#show'

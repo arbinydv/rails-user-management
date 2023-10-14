@@ -33,11 +33,10 @@ git clone git@github.com:arbinydv/rails-user-management.git
     ```
     bundle install
     ```
-### Generating JWT Token and Hiding the Access
-  * Generating 32 bits random key on app directory terminal:
+### Generating SECRET KEY Token and Hiding the Access
+  * Generating secret key using Rails.application.secrets.secret_key_base 
     
-      `openssl rand -base64 32`
-  * Hiding the JWT_KEY: Run the command on your terminal:
+  * Securing the Key : Run the command on your terminal to manage credentials and master key for encryption-decryption
       `EDITOR="code --wait" rails credentials:edit`
 
 ### Migrating Data 🌱
@@ -57,6 +56,18 @@ git clone git@github.com:arbinydv/rails-user-management.git
     rails server || rails s
     ```
  Now, your project is up and running at http://localhost:3000 🌐
+### Dockerization
+  If you wish to use docker to build and deploy the project, please follow the steps below
+   - `docker-compose build`
+   - `docker-compose up`
+
+    Database Migration 
+      docker-compose run app rails db:create
+      docker-compose run app rails db:migrate
+      docker-compose run app rails db:seed
+    ActiveRecord:
+      docker-compose run app rails c
+   - `docker-compose down`
 #### 3. API Authentication and Authorization using POSTMAN
 * Please refer to this Postman Collection inside this google drive for all endpoints
     - https://drive.google.com/drive/folders/1wypukKswhvGdkqtFenSSO3XYwPYiKxf-?usp=sharing

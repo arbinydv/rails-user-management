@@ -1,39 +1,33 @@
 class ApplicationController < ActionController::API
-	before_action :authenticate_user
+  before_action :authenticate_user
 
-  def jwt_key
-      Rails.application.credentials.jwt_key
-  end
+  private
 
-  def issue_token(user)
-      JWT.encode({user_id: user.id}, jwt_key, "HS256")
-  end
-
-  def decoded_token
-    begin
-      JWT.decode(token, jwt_key, true, { :algorithm => 'HS256' })
-    rescue => exception
-		[{error: "Invalid Token"}]
-    end
-  end
-
-  def token
-      request.headers["Authorization"]
-  end
-
-  def user_id
-      decoded_token.first["user_id"]
-  end
-
-  def current_user
-      user ||= User.find_by(id: user_id)
+  def authenticate_user
+    authorization_header = request.headers['Authorization'] ## from Postman
+    token = authorization_header.split(" ").last if authorization_header
+    decoded_token = JsonWebToken.decode(token)
+    @user_id = decoded_token[:user_id]
+    render json: { message: 'Please log in' }, status: :unauthorized unless logged_in?
+  rescue JWT::VerificationError
+    invalid_token
+  rescue JWT::DecodeError
+    decode_error
   end
 
   def logged_in?
-      !!current_user
+    !!current_user
   end
-	
-  def authenticate_user
-    render json: { message: 'Please log in' }, status: :unauthorized unless logged_in?
-  end 
+
+  def current_user
+    @current_user ||= User.find_by(id: @user_id)
+  end
+
+  def invalid_token
+    render json: { invalid_token: 'Invalid token' }
+  end
+
+  def decode_error
+    render json: { decode_error: 'Decode error' }
+  end
 end

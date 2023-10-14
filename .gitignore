@@ -24,8 +24,8 @@
 /tmp/storage/*
 !/tmp/storage/
 !/tmp/storage/.keep
-# Ignore vscode directory upload
-.vscode/
 
 # Ignore master key for decrypting credentials and more.
 /config/master.key
+/config/master.key
+/vscode

@@ -1,10 +1,10 @@
 class Api::V1::SessionsController < ApplicationController
   skip_before_action :authenticate_user, only: [:create]
 
-  def create
+  def signin
     user = User.find_by(email: session_params[:email])  ## when user tries to sign in it comes here first to create a new session
     if user && user.authenticate(session_params[:password])  # user.authenticate ==> from bcrypt gem 
-        token = issue_token(user) 
+        token = JsonWebToken.encode(user_id: user.id) 
         user_json = {
         jwt: token,
         email: user.email,
@@ -18,16 +18,16 @@ class Api::V1::SessionsController < ApplicationController
             type: "users",
             attributes: user_json
         }}
-      render json: response_data, status: 200
+      render json: response_data, status: :ok
     else
-      render json: {error: 'Incorrect Email or Password'}, status: 401
+      render json: {error: 'Incorrect Email or Password'}, status: :unauthorized
     end
   end
   def show
     if logged_in?
         render json: current_user
     else
-        render json: { error: 'User not found!'}, status: 401
+        render json: { error: 'User not found!'}, status: :unauthorized
     end
   end
 
