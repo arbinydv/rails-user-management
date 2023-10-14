@@ -1,11 +1,10 @@
 FROM ruby:3.1.2
 
 RUN apt-get update -qq && apt-get install -y nodejs postgresql-client
-WORKDIR /Rails-User-Management
-COPY Gemfile /Rails-User-Management/Gemfile
-COPY Gemfile.lock /Rails-User-Management/Gemfile.lock
-RUN bundle install
+WORKDIR /rails-user-management
+COPY . .
+RUN gem install bundler -v 2.4.19 && bundle install
 
 EXPOSE 3000
 
-CMD ["rails", "server", "-b", "0.0.0.0"]
+CMD ["rails" ,"server", "-b", "0.0.0.0"]
